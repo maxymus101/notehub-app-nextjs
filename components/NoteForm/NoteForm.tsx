@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Form, Formik, type FormikHelpers } from "formik";
 import css from "./NoteForm.module.css";
-import type { PostNote } from "../../services/noteService";
+import type { PostNote } from "../../lib/api";
 import * as Yup from "yup";
 
 interface NoteFormProps {

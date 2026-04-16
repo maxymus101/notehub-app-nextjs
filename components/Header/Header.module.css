@@ -1,0 +1,37 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem;
+    background-color: #091413;
+    color: #B0E4CC;
+}
+
+.header a {
+    text-decoration: none;
+    color: #B0E4CC;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.header a:hover {
+    color: #4fd3eb;
+}
+
+.navigation {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+}
+
+.navigation li a {
+    text-decoration: none;
+    color: #B0E4CC;
+    font-size: 1.5rem;
+}
+
+.navigation li a:hover {
+    color: #4fd3eb;
+}

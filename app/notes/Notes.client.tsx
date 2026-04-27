@@ -1,17 +1,20 @@
 "use client";
-
+import SearchBox from "@/components/SearchBox/SearchBox";
+import css from "./NotesClient.module.css";
 import { useDeleteNote } from "@/hooks/useDeleteNote";
 import { useNotes } from "@/hooks/useNotes";
 import { usePostNote } from "@/hooks/usePostNote";
-import { Note } from "@/types/note";
-import { QueryClient } from "@tanstack/react-query";
+import { PostNote } from "@/lib/api";
 import { useState } from "react";
+import { Toaster } from "react-hot-toast";
+import Modal from "@/components/Modal/Modal";
+import NoteForm from "@/components/NoteForm/NoteForm";
+import Loader from "@/components/Loader/Loader";
+import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
+import NoteList from "@/components/NoteList/NoteList";
+import Pagination from "@/components/Pagination/Pagination";
 
-interface NotesClientProps {
-  prefetchedData: Note[];
-}
-
-export default function NotesClient((prefetchedData):NotesClientProps) {
+export default function NotesClient() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);

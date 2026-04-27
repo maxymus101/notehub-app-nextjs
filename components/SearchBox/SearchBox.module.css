@@ -3,6 +3,17 @@
     max-width: 240px;
     padding: 6px 12px;
     font-size: 16px;
-    border: 1px solid #ced4da;
+    color: #b0e4cc;
+    border: 1px solid #091413;
     border-radius: 4px;
+    background-color: #091413;
+}
+
+.input:focus,
+.input:active {
+    outline: none;
+}
+
+.input::placeholder {
+    color: #b8b8b89a;
 }

@@ -24,6 +24,9 @@ const api = axios.create({
   },
 });
 
+// --Sintetic delay--
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 // --GET Notes--
 export async function fetchNotes(
   query: string = "",
@@ -31,6 +34,7 @@ export async function fetchNotes(
   perPage: number = 12,
 ): Promise<GetNotesResponse> {
   try {
+    await delay(1000);
     const res = await api.get<GetNotesResponse>("/notes", {
       params: { search: query, page: page, perPage: perPage },
     });
@@ -81,6 +85,25 @@ export async function deleteNote(id: string): Promise<Note> {
       }
     } else {
       console.error("Unexpected error deleting note:", error);
+    }
+    throw error;
+  }
+}
+
+// --Get Note by ID--
+export async function fetchNoteById(id: string): Promise<Note> {
+  try {
+    const res = await api.get<Note>(`/notes/${id}`);
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Could not find specific note.", error.message);
+      if (error.response) {
+        console.error("Response data:", error.response.data);
+        console.error("Response status:", error.response.status);
+      }
+    } else {
+      console.error("Unexpected error finding specific note:", error);
     }
     throw error;
   }

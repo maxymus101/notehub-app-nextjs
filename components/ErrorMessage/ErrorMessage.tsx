@@ -2,8 +2,8 @@ import css from "./ErrorMessage.module.css";
 
 interface ErrorMessageProps {
   message: string;
-  onClick: () => void;
-  isRetrying: boolean;
+  onClick?: () => void;
+  isRetrying?: boolean;
 }
 
 export default function ErrorMessage({

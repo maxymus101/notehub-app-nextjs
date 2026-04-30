@@ -76,7 +76,15 @@ export default function NotesClient() {
         />
       )}
       {isSuccess && data && data.notes.length > 0 && (
-        <NoteList notes={data?.notes} onDelete={handleNoteDelete} />
+        <NoteList notes={data?.notes} onClick={handleNoteDelete} />
+      )}
+
+      {data && data.notes.length === 0 && (
+        <ErrorMessage
+          message={"Notes not found"}
+          onClick={handleError}
+          isRetrying={isRetrying}
+        />
       )}
       <Pagination
         pageCount={totalPages}

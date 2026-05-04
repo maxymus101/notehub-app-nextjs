@@ -86,11 +86,13 @@ export default function NotesClient() {
           isRetrying={isRetrying}
         />
       )}
-      <Pagination
-        pageCount={totalPages}
-        onPageChange={({ selected }) => setCurrentPage(selected + 1)}
-        forcePage={currentPage - 1}
-      />
+      {data && data.notes.length > 0 && (
+        <Pagination
+          pageCount={totalPages}
+          onPageChange={({ selected }) => setCurrentPage(selected + 1)}
+          forcePage={currentPage - 1}
+        />
+      )}
     </div>
   );
 }

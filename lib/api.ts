@@ -32,11 +32,12 @@ export async function fetchNotes(
   query: string = "",
   page: number = 1,
   perPage: number = 12,
+  tag?: NoteTag,
 ): Promise<GetNotesResponse> {
   try {
     await delay(1000);
     const res = await api.get<GetNotesResponse>("/notes", {
-      params: { search: query, page: page, perPage: perPage },
+      params: { search: query, tag: tag, page: page, perPage: perPage },
     });
     return res.data;
   } catch (error) {

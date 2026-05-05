@@ -2,7 +2,7 @@
 
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import css from "./NoteDetails.module.css";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Loader from "@/components/Loader/Loader";
 import { useQuery } from "@tanstack/react-query";
@@ -10,6 +10,7 @@ import { fetchNoteById } from "@/lib/api";
 
 export default function NoteDetailsClient() {
   const { id } = useParams<{ id: string }>();
+  const router = useRouter();
 
   const {
     data: note,
@@ -21,15 +22,23 @@ export default function NoteDetailsClient() {
     refetchOnMount: false,
   });
 
+  const handleGoBack = () => {
+    const isSure = confirm("Are you sure?");
+    if (isSure) {
+      router.back();
+    }
+  };
+
   return (
     <main className={css.main}>
-      <div className={css.link_wrap}>
-        <Link href={`/notes`} className={css.link_goBack}>
-          ←
-        </Link>
-      </div>
+      <div className={css.link_wrap}></div>
       {id && note && (
         <div className={css.container}>
+          <div className={css.button_wrap}>
+            <button className={css.button_goBack} onClick={handleGoBack}>
+              Go Back
+            </button>
+          </div>
           <div className={css.item}>
             <div className={css.header}>
               <h2>{note?.title}</h2>

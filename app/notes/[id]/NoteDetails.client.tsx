@@ -3,7 +3,6 @@
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import css from "./NoteDetails.module.css";
 import { useParams, useRouter } from "next/navigation";
-import Link from "next/link";
 import Loader from "@/components/Loader/Loader";
 import { useQuery } from "@tanstack/react-query";
 import { fetchNoteById } from "@/lib/api";

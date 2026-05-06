@@ -3,6 +3,7 @@ import type { Note, NoteTag } from "../types/note";
 
 export interface GetNotesResponse {
   notes: Note[];
+  tag: NoteTag;
   page: number;
   perPage: number;
   totalPages: number;
@@ -30,9 +31,9 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 // --GET Notes--
 export async function fetchNotes(
   query: string = "",
+  tag?: NoteTag,
   page: number = 1,
   perPage: number = 12,
-  tag?: NoteTag,
 ): Promise<GetNotesResponse> {
   try {
     await delay(1000);

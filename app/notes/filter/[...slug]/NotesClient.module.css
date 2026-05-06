@@ -1,0 +1,29 @@
+.toolbar {
+    min-width: 320px;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background-color: #408a71;
+    /* border-bottom: 1px solid #dee2e6; */
+    border-radius: 8px;
+}
+
+.button {
+    padding: 6px 12px;
+    font-size: 16px;
+    color: #b0e4cc;
+    background-color: #091413;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.button:hover {
+    background-color: #41afc2;
+    color: #b0e4cc;
+}

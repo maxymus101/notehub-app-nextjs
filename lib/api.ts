@@ -36,7 +36,7 @@ export async function fetchNotes(
   perPage: number = 12,
 ): Promise<GetNotesResponse> {
   try {
-    await delay(1000);
+    await delay(500);
     const res = await api.get<GetNotesResponse>("/notes", {
       params: { search: query, tag: tag, page: page, perPage: perPage },
     });

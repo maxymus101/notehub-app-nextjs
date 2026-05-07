@@ -1,4 +1,3 @@
-import css from "./page.module.css";
 import { fetchNotes } from "@/lib/api";
 import { NoteTag } from "@/types/note";
 import {
@@ -19,8 +18,6 @@ export default async function NotesByTag({ params }: Props) {
   const isAll = tagParam === "all";
 
   const tag = isAll ? undefined : (tagParam as NoteTag);
-
-  //   const notes = await fetchNotes(tag);
 
   await queryClient.prefetchQuery({
     queryKey: ["note", tag ?? "all"],

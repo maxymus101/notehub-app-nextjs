@@ -69,7 +69,7 @@ export default function NotesClient({ tag }: NotesClientProps) {
         <SearchBox value={searchQuery} onChange={setSearchQuery} />
       </header>
       {isModalOpen && (
-        <Modal onClose={handleModalClose}>
+        <Modal>
           <NoteForm onSubmit={handleNoteAdd} onClose={handleModalClose} />
         </Modal>
       )}

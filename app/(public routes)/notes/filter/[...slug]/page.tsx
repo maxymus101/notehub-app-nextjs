@@ -11,6 +11,37 @@ type Props = {
   params: Promise<{ slug: string[] }>;
 };
 
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params;
+  const tagParam = slug?.[0] ?? "all";
+  const isAll = tagParam === "all";
+
+  const descTag = !isAll ? "All notes" : `Filtered by ${tagParam} tag`;
+
+  const tagUrl =
+    tagParam === "all"
+      ? "https://notehub-app-nextjs.vercel.app/notes/filter/all"
+      : `https://notehub-app-nextjs.vercel.app/notes/filter/${tagParam}`;
+
+  return {
+    title: `Tag: ${tagParam}`,
+    description: `${descTag}`,
+    openGraph: {
+      title: `Tag: ${tagParam}`,
+      description: `${descTag}`,
+      url: tagUrl,
+      images: [
+        {
+          url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+          width: 1200,
+          height: 630,
+          alt: "NoteHub",
+        },
+      ],
+    },
+  };
+}
+
 export default async function NotesByTag({ params }: Props) {
   const queryClient = new QueryClient();
   const { slug } = await params;

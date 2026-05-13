@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props) {
   const tagParam = slug?.[0] ?? "all";
   const isAll = tagParam === "all";
 
-  const descTag = !isAll ? "All notes" : `Filtered by ${tagParam} tag`;
+  const descTag = !isAll ? "All notes" : `Notes filtered by ${tagParam} tag`;
 
   const tagUrl =
     tagParam === "all"

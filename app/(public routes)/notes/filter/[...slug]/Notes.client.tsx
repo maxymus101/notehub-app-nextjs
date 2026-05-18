@@ -70,7 +70,7 @@ export default function NotesClient({ tag }: NotesClientProps) {
       </header>
       {isModalOpen && (
         <Modal>
-          <NoteForm onSubmit={handleNoteAdd} onClose={handleModalClose} />
+          <NoteForm onSubmit={handleNoteAdd} />
         </Modal>
       )}
       {isLoading && isFetching && <Loader />}

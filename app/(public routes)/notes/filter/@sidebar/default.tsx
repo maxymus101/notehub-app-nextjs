@@ -5,7 +5,6 @@ import Link from "next/link";
 export default async function SidebarNotes() {
   return (
     <>
-      <Link href="/notes/action/create">Create note</Link>
       <ul className={css.menuList}>
         <li className={css.menuItem}>
           <Link href="/notes/filter/all" className={css.menuLink}>

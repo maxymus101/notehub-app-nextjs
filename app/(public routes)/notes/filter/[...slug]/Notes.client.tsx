@@ -3,17 +3,14 @@ import SearchBox from "@/components/SearchBox/SearchBox";
 import css from "./NotesClient.module.css";
 import { useDeleteNote } from "@/hooks/useDeleteNote";
 import { useNotes } from "@/hooks/useNotes";
-import { usePostNote } from "@/hooks/usePostNote";
-import { PostNote } from "@/lib/api";
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
-import Modal from "@/components/Modal/Modal";
-import NoteForm from "@/components/NoteForm/NoteForm";
 import Loader from "@/components/Loader/Loader";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import NoteList from "@/components/NoteList/NoteList";
 import Pagination from "@/components/Pagination/Pagination";
 import { NoteTag } from "@/types/note";
+import Link from "next/link";
 
 type NotesClientProps = {
   tag?: NoteTag;
@@ -21,7 +18,6 @@ type NotesClientProps = {
 
 export default function NotesClient({ tag }: NotesClientProps) {
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data, error, isSuccess, isFetching, isLoading, isError, refetch } =
@@ -29,30 +25,14 @@ export default function NotesClient({ tag }: NotesClientProps) {
 
   const [isRetrying, setIsRetrying] = useState(false);
 
-  const postNoteMutation = usePostNote();
-
   const deleteNoteMutation = useDeleteNote();
 
   const totalPages = data?.totalPages ?? 0;
-
-  const handleModalOpen = () => {
-    setIsModalOpen(true);
-  };
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
 
   const handleError = async () => {
     setIsRetrying(true);
     await refetch();
     setIsRetrying(false);
-  };
-
-  const handleNoteAdd = (formValues: PostNote | null) => {
-    if (!formValues) return null;
-
-    postNoteMutation.mutate(formValues);
-    handleModalClose();
   };
 
   const handleNoteDelete = (id: string) => {
@@ -63,16 +43,11 @@ export default function NotesClient({ tag }: NotesClientProps) {
     <>
       <Toaster />
       <header className={css.toolbar}>
-        <button className={css.button} onClick={handleModalOpen}>
+        <Link href="/notes/create/action" className={css.button}>
           Create note +
-        </button>
+        </Link>
         <SearchBox value={searchQuery} onChange={setSearchQuery} />
       </header>
-      {isModalOpen && (
-        <Modal>
-          <NoteForm onSubmit={handleNoteAdd} />
-        </Modal>
-      )}
       {isLoading && isFetching && <Loader />}
       {isError && (
         <ErrorMessage

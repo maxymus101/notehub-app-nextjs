@@ -1,15 +1,35 @@
 "use client";
 
 import css from "./NoteForm.module.css";
-import type { PostNote } from "../../lib/api";
+import { createNote, type PostNote } from "../../lib/api";
 import { useRouter } from "next/navigation";
 import { tags } from "@/lib/constants/constants";
-import { usePostNote } from "@/hooks/usePostNote";
 import { NoteTag } from "@/types/note";
+import { useNoteDraftStore } from "@/lib/store/noteStore";
+import { useMutation } from "@tanstack/react-query";
 
 export default function NoteForm() {
   const router = useRouter();
-  const addNoteMutation = usePostNote();
+  const { draft, setDraft, clearDraft } = useNoteDraftStore();
+
+  const handleChange = (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    setDraft({
+      ...draft,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const { mutate } = useMutation({
+    mutationFn: createNote,
+    onSuccess: () => {
+      clearDraft();
+      router.push("/notes/filter/all");
+    },
+  });
 
   const handleCancel = () => {
     router.push("/notes/filter/all");
@@ -21,22 +41,40 @@ export default function NoteForm() {
     const tag = formData.get("tag") as NoteTag;
 
     const values: PostNote = { title, content, tag };
-    addNoteMutation.mutate(values);
+    mutate(values);
   };
   return (
     <form action={handleSubmit} className={css.form}>
       <div className={css.formGroup}>
         <label htmlFor="title">
           Title
-          <input id="title" type="text" name="title" className={css.input} />
+          <input
+            id="title"
+            type="text"
+            name="title"
+            defaultValue={draft?.title}
+            onChange={handleChange}
+            className={css.input}
+          />
         </label>
         <label htmlFor="content">
           Content
-          <textarea name="content" rows={8} className={css.textarea}></textarea>
+          <textarea
+            name="content"
+            rows={8}
+            defaultValue={draft?.content}
+            onChange={handleChange}
+            className={css.textarea}
+          ></textarea>
         </label>
         <label htmlFor="tag">
           Tag
-          <select name="tag" className={css.select}>
+          <select
+            name="tag"
+            defaultValue={draft?.tag}
+            onChange={handleChange}
+            className={css.select}
+          >
             {tags.map((tag) => (
               <option key={tag} value={tag}>
                 {tag}

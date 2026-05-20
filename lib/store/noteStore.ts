@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { PostNote } from "../api";
+import { persist } from "zustand/middleware";
 
 type NoteDraftStore = {
   draft: PostNote;
@@ -13,8 +14,18 @@ const initialDraft: PostNote = {
   tag: "Todo",
 };
 
-export const useNoteDraftStore = create<NoteDraftStore>()((set) => ({
-  draft: initialDraft,
-  setDraft: (note: PostNote) => set(() => ({ draft: note })),
-  clearDraft: () => set(() => ({ draft: initialDraft })),
-}));
+export const useNoteDraftStore = create<NoteDraftStore>()(
+  persist(
+    (set) => ({
+      draft: initialDraft,
+      setDraft: (note: PostNote) => set(() => ({ draft: note })),
+      clearDraft: () => set(() => ({ draft: initialDraft })),
+    }),
+    {
+      name: "note-draft",
+      partialize: (state) => ({
+        draft: state.draft,
+      }),
+    },
+  ),
+);

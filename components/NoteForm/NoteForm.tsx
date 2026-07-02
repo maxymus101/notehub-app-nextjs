@@ -46,7 +46,7 @@ export default function NoteForm() {
   return (
     <form action={handleSubmit} className={css.form}>
       <div className={css.formGroup}>
-        <label htmlFor="title">
+        <label className={css.label} htmlFor="title">
           Title
           <input
             id="title"
@@ -57,7 +57,7 @@ export default function NoteForm() {
             className={css.input}
           />
         </label>
-        <label htmlFor="content">
+        <label className={css.label} htmlFor="content">
           Content
           <textarea
             name="content"
@@ -67,7 +67,7 @@ export default function NoteForm() {
             className={css.textarea}
           ></textarea>
         </label>
-        <label htmlFor="tag">
+        <label className={css.label} htmlFor="tag">
           Tag
           <select
             name="tag"

@@ -43,7 +43,7 @@ export default function NotesClient({ tag }: NotesClientProps) {
     <>
       <Toaster />
       <header className={css.toolbar}>
-        <Link href="/notes/create/action" className={css.button}>
+        <Link href="/notes/actions/create" className={css.button}>
           Create note +
         </Link>
         <SearchBox value={searchQuery} onChange={setSearchQuery} />

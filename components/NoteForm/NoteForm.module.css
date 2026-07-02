@@ -1,15 +1,24 @@
 .form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    justify-content: center;
+    align-items: center;
 }
 
 .formGroup {
     display: flex;
     flex-direction: column;
+    gap: 16px;
+    width: 50%;
+
     font-size: 14px;
     font-weight: 500;
     color: #b0e4cc;
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
 }
 
 .input,
